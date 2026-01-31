@@ -43,7 +43,7 @@ This script configures three things to work together:
 - Creates your profile if it doesn't exist
 - Ensures Oh My Posh is initialized with `oh-my-posh init pwsh --config '<theme>' | Invoke-Expression`
 - Comments out any custom `function prompt { }` blocks that would override Oh My Posh (with backup)
-- Removes duplicate Oh My Posh init lines if present
+- Comments out duplicate Oh My Posh init lines if present
 
 ### 2. Oh My Posh Theme (if installed)
 - Locates your active theme from the profile
@@ -109,7 +109,7 @@ The `splitMode: duplicate` setting in Windows Terminal keybindings tells it to u
 
 ## Safety Features
 
-- **Backups**: Every modified file gets a timestamped backup (e.g., `settings.json.bak-20240115-143022`)
+- **Backups**: Every modified file gets a timestamped backup (e.g., `settings.json.bak-20240115-143022-789`)
 - **Idempotent**: Safe to run multiple times. Re-running when already configured makes no changes.
 - **Graceful degradation**: If Oh My Posh isn't installed, the script adds an OSC 9;9 prompt function to your profile instead.
 

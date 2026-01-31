@@ -6,9 +6,9 @@ When you split a pane or duplicate a tab in Windows Terminal, the new pane often
 
 ## The Problem
 
-By default, Windows Terminal doesn't know what directory your shell is in. When you press `Alt+Shift+-` to split horizontally or `Ctrl+Shift+D` to duplicate a tab, the new shell starts fresh in `~` or `C:\Users\YourName`.
+By default, Windows Terminal doesn't know what directory your shell is in - it can't know because your shell needs to tell it! Remember that Terminal, a Console, a Shell, and a Prompt are different things. When you press `Alt+Shift+-` to split horizontally or `Ctrl+Shift+D` to duplicate a tab, the new shell starts fresh in `~` or `C:\Users\YourName`.
 
-This is frustrating when you're deep in a project folder and want a second terminal right there.
+This is frustrating when you're deep in a project folder or using an Agent and want a second terminal right there in the current directory.
 
 ## The Solution
 

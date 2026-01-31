@@ -42,18 +42,24 @@ function Write-Log {
 }
 
 function Get-Timestamp {
-    return (Get-Date -Format "yyyyMMdd-HHmmss")
+    return (Get-Date -Format "yyyyMMdd-HHmmss-fff")
 }
 
 function Backup-File {
     param([string]$Path)
     if (-not (Test-Path $Path)) { return $null }
     $backupPath = "$Path.bak-$(Get-Timestamp)"
+    # Ensure unique backup path if one already exists
+    $counter = 0
+    while (Test-Path $backupPath) {
+        $counter++
+        $backupPath = "$Path.bak-$(Get-Timestamp)-$counter"
+    }
     if ($WhatIfPreference) {
         Write-Log "Would backup: $Path -> $backupPath" -Verbose
         return $backupPath
     }
-    Copy-Item -Path $Path -Destination $backupPath -Force
+    Copy-Item -Path $Path -Destination $backupPath
     Write-Log "Backed up: $Path -> $backupPath" -Verbose
     return $backupPath
 }
@@ -306,6 +312,12 @@ function Update-TerminalActions {
         # Remove comments for parsing (Windows Terminal allows // comments)
         $cleanJson = $settingsContent -replace '(?m)^\s*//.*$', '' -replace ',(\s*[}\]])', '$1'
         $settings = $cleanJson | ConvertFrom-Json -AsHashtable
+        
+        # Validate settings structure
+        if ($settings -isnot [hashtable] -and $settings -isnot [System.Collections.Specialized.OrderedDictionary]) {
+            Write-Log "Windows Terminal settings has unexpected structure"
+            return $false
+        }
         
         if (-not $settings.ContainsKey('actions')) {
             $settings['actions'] = @()

@@ -27,7 +27,10 @@ This script configures three things to work together:
 # Apply the fix
 .\Fix-SplitPanePersistence.ps1
 
-# Restart your terminal
+# Restart your terminal, then use:
+#   Alt+Shift+-    → horizontal split (same directory)
+#   Alt+Shift++    → vertical split (same directory)
+#   Ctrl+Shift+D   → duplicate tab (same directory)
 ```
 
 ## What It Does
@@ -51,6 +54,8 @@ This script configures three things to work together:
 | `Alt+Shift+-` | Split pane horizontally (same directory) |
 | `Alt+Shift++` | Split pane vertically (same directory) |
 | `Ctrl+Shift+D` | Duplicate tab (same directory) |
+
+> **Note:** These are Windows Terminal's default shortcuts. The script updates them to use `splitMode: duplicate` so they preserve your directory. If you've customized these keybindings, the script will update your existing bindings rather than creating duplicates. Your other custom actions are preserved.
 
 ## Why This Should Be the Default
 
